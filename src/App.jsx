@@ -2,14 +2,17 @@ import React from "react"
 import Die from "./components/Die";
 
 export default function App() {
-    const [dice, setDice] = React.useState(allNewDice()); // Initialize state with random numbers
+    const [dice, setDice] = React.useState(generateAllNewDice()); // Initialize state with random numbers
 
-    function allNewDice() {
+    function generateAllNewDice() {
       return Array.from({ length: 10 }, () => Math.floor(Math.random() * 6) + 1)
-
     }
 
-    const diceElements = dice.map(num => <Die key={num} value={num} />);
+    function rollDice() {
+        setDice(generateAllNewDice());
+    }
+
+    const diceElements = dice.map(num => <Die value={num} />);
 
     return (
         <>
@@ -17,6 +20,9 @@ export default function App() {
             <div className="dice-container">
               {diceElements}
             </div>
+
+            <button className="roll-dice" onClick={rollDice}>Roll</button>
+
           </main>
         </>
     );

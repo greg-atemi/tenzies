@@ -11,7 +11,7 @@ body {
     padding: 20px;
     justify-content: center;
     align-items: center;
-    font-family: Inter, sans-serif;
+    font-family: Karla, sans-serif;
 }
 
 div#root {
@@ -27,9 +27,14 @@ main {
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     padding: 15%;
+ }
+
+ button{
+    cursor: pointer;
+    font-family: Karla, sans-serif;
  }
 
  main .dice-container {
@@ -53,4 +58,14 @@ main {
     cursor: pointer;
     font-family: Inter, sans-serif;
     transition: background-color 0.3s ease;
+ }
+
+ button.roll-dice {
+    height: 50px;
+    width: 100px;
+    border: none;
+    border-radius: 6px;
+    background-color: #5035FF;
+    color: white;
+    font-size: 1.2rem;
  }
