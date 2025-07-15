@@ -3,11 +3,15 @@ export default function Die(props) {
         backgroundColor: props.isHeld ? "#59E391" : "white"
     };
 
-    return(
+    return (
         <>
-            <button className="die" style={styles}>
+            <button 
+                className="die" 
+                style={styles} 
+                onClick={props.hold} // Trigger the onClick function passed from parent
+            >
                 {props.value}
             </button>
         </>
-    )
+    );
 }
