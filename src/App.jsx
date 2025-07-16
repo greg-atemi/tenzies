@@ -1,9 +1,16 @@
 import React from "react"
 import { nanoid } from "nanoid";
 import Die from "./components/Die";
+import Confetti from 'react-confetti-boom';
 
 export default function App() {
     const [dice, setDice] = React.useState(generateAllNewDice()); // Initialize state with random numbers
+    let gameOver = false;
+
+    if (dice.every(die => die.isHeld && dice.every(die => die.value === dice[0].value))) {
+      gameOver = true;
+      console.log("Game Is Over");
+    }
 
     function generateAllNewDice() {
       return Array.from({ length: 10 }, () => ({
@@ -14,10 +21,14 @@ export default function App() {
     }
 
     function rollDice() {
-      setDice(prevDice =>
-        prevDice.map(die => 
-            die.isHeld ? die : { ...die, value: Math.floor(Math.random() * 6) + 1 }
-      ));
+      if (!gameOver) {
+        setDice(prevDice =>
+          prevDice.map(die => 
+              die.isHeld ? die : { ...die, value: Math.floor(Math.random() * 6) + 1 }
+        ));
+      } else {
+        setDice(generateAllNewDice()); // Reset the game with new dice
+      }
     }
 
     function hold(id) {
@@ -41,6 +52,7 @@ export default function App() {
     return (
         <>
           <main>
+            {gameOver ? <Confetti /> : null}
             <h1 className="title"> Tenzies </h1>
             <p className="instructions">
               Roll until all dice are held. Click each die to freeze it at its current value between rolls.
@@ -49,7 +61,9 @@ export default function App() {
               {diceElements}
             </div>
 
-            <button className="roll-dice" onClick={rollDice}>Roll</button>
+            <button className="roll-dice" onClick={rollDice}>
+              {gameOver ? "New Game" : "Roll"}
+            </button>
 
           </main>
         </>
